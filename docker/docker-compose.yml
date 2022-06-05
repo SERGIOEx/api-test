@@ -1,0 +1,53 @@
+version: '3'
+
+volumes:
+  pg_db:
+    external: true
+
+services:
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: ${COMPOSE_PROJECT_NAME}-nginx
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ../src:/var/www
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx/
+    depends_on:
+      - php-workspace
+    environment:
+      TZ: "${WORKSPACE_TIMEZONE}"
+
+  php-workspace:
+    build:
+      context: ./php/workspace
+      dockerfile: Dockerfile
+      args:
+        DOCKER_PHP_VERSION: ${PHP_VERSION}
+        TZ: "${WORKSPACE_TIMEZONE}"
+    working_dir: /var/www
+    container_name: ${COMPOSE_PROJECT_NAME}-php-workspace
+    volumes:
+      - ./.ssh:/home/www-data/.ssh
+      - ../src:/var/www
+      - ./php/ini/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "${PHP_PORT}:9000"
+
+  postgres:
+    build:
+      context: ./postgres
+    image: postgres
+    container_name:  ${COMPOSE_PROJECT_NAME}-postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - pg_db:/var/lib/postgresql/data
+      - ${POSTGRES_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    ports:
+      - "${POSTGRES_PORT}:5432"

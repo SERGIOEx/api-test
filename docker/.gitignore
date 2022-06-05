@@ -1,0 +1,12 @@
+.env
+
+/.ssh/**
+!/.ssh/.gitkeep
+/nginx/logs/**
+!/nginx/logs/.gitkeep
+/mysql/dump/**
+!/mysql/dump/.gitkeep
+/mysql/data/**
+!/mysql/data/.gitkeep
+/mysql/logs/**
+!/mysql/logs/.gitkeep

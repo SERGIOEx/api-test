@@ -3,8 +3,9 @@
 ## Init this project
 
 - Clone and cd into this project
+- ```docker volume create pg_db```
 - ```docker-compose up -d```
-- ```docker exec -it test_web bash```
+- ```docker exec -it test_api_workspace bash```
 - ```php artisan migrate```
 
 ## Project Business logic

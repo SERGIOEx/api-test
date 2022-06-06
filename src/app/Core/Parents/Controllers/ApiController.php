@@ -4,6 +4,8 @@ namespace App\Core\Parents\Controllers;
 
 
 use App\Core\Parents\Traits\ResponseTrait;
+use Nwidart\Modules\Routing\Controller;
+
 
 /**
  * Class ApiController.
@@ -20,6 +22,5 @@ abstract class ApiController extends Controller
      *
      * @var  string
      */
-    public $ui = 'api';
-
+    public string $ui = 'api';
 }

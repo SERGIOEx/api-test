@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Containers\Auth\Http\Controllers;
+namespace App\Containers\Auth\Http\Controllers\API;
 
+use App\Core\Parents\Controllers\ApiController;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     /**
      * Display a listing of the resource.

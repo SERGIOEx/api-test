@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Core\Core\Exceptions;
 
-use App\Core\Core\Exceptions\InternalErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

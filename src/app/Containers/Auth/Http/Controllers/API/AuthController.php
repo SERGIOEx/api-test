@@ -2,78 +2,37 @@
 
 namespace App\Containers\Auth\Http\Controllers\API;
 
+use App\Containers\Auth\Http\Requests\SignInRequest;
+use App\Containers\Auth\Tasks\AuthUserByEmailPasswordTask;
+use App\Containers\Auth\Tasks\DeleteTokenTask;
+use App\Containers\Auth\Tasks\InitializeTokenTask;
+use App\Containers\Auth\Transformers\AuthTransformer;
+use App\Core\Core\Exceptions\InternalErrorException;
 use App\Core\Parents\Controllers\ApiController;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends ApiController
 {
+
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * @param SignInRequest $request
+     * @return array
+     * @throws InternalErrorException
+     * @throws \Throwable
      */
-    public function index()
+    public function login(SignInRequest $request): array
     {
-        return view('auth::index');
+        AuthUserByEmailPasswordTask::run($request->email, $request->password);
+        return $this->transform(InitializeTokenTask::run(), AuthTransformer::class);
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     * @return JsonResponse
      */
-    public function create()
+    public function logout(): JsonResponse
     {
-        return view('auth::create');
+        DeleteTokenTask::run();
+        return $this->deleted('ok');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('auth::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('auth::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

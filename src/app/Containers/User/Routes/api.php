@@ -1,5 +1,6 @@
 <?php
 
+use App\Containers\User\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/*
 Route::prefix('user')->group(function () {
 
     // get companies list
@@ -21,4 +22,11 @@ Route::prefix('user')->group(function () {
     // add companies
 
 
-})->middleware('auth:sanctum');
+})->middleware('auth:sanctum');*/
+
+Route::prefix('user')->group(function () {
+
+    // get companies with user
+    Route::get('/companies', [UserController::class, 'getCompanyList']);
+
+});

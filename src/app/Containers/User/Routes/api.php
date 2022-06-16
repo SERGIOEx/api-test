@@ -25,7 +25,7 @@ Route::prefix('user')->group(function () {
 
 })->middleware('auth:sanctum');*/
 
-Route::prefix('user')->group(function () {
+Route::prefix('user')->middleware('auth:sanctum')->group(function () {
 
     // get companies with user
     Route::get('/companies', [UserController::class, 'getCompanyList']);

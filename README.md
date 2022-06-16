@@ -12,11 +12,18 @@
 - ```php artisan migrate```
 
 ## Project Business logic
+- app\Containers
+- app\Core
 
 ## Endpoits
+- ```https://domain.com/api/auth/register | POST ```
+- ```https://domain.com/api/auth/login | POST ```
+- ```https://domain.com/api/user/companies | GET ```
+- ```https://domain.com/api/user/companies | POST ```
 
 ## TODO
-
+- endpoint: recover-password
+- 
 ## Stack:
 - Lumen
 - PostgreSQL
@@ -26,7 +33,6 @@ Create RESTFull API.
 
 ## Description:
 Create the API to share the company's information for the logged users.
-
 
 ## Details:
 

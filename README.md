@@ -6,6 +6,9 @@
 - ```docker volume create pg_db```
 - ```docker-compose up -d```
 - ```docker exec -it test_api-php-workspace bash```
+- ```cp .env.example .env```
+- ```php composer install```
+- ```php composer update```
 - ```php artisan migrate```
 
 ## Project Business logic

@@ -10,6 +10,7 @@
 - ```php composer install```
 - ```php composer update```
 - ```php artisan migrate```
+- ```php artisan module:seed User```
 
 ## Project Business logic
 - app\Containers

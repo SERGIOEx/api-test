@@ -23,8 +23,12 @@
 - ```https://domain.com/api/user/companies | POST ```
 
 ## TODO
-- endpoint: recover-password
-- 
+- add endpoint: recover-password
+- need to replace the controller with action (ADR)
+- add service layer for tasks
+- tests
+- add api-doc or swagger for endpoints
+
 ## Stack:
 - Lumen
 - PostgreSQL

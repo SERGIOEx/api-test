@@ -14,16 +14,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-/*
-Route::prefix('user')->group(function () {
-
-    // get companies list
-
-
-    // add companies
-
-
-})->middleware('auth:sanctum');*/
 
 Route::prefix('user')->middleware('auth:sanctum')->group(function () {
 

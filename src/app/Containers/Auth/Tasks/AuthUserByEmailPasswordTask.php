@@ -11,10 +11,10 @@ final class AuthUserByEmailPasswordTask
     /**
      * @param string $email
      * @param string $password
-     * @return string
+     * @return void
      * @throws \Throwable
      */
-    public static function run(string $email, string $password): string
+    public static function run(string $email, string $password)
     {
         throw_if(!Auth::attempt(
             ['email' => $email, 'password' => $password]),

@@ -11,7 +11,7 @@ use App\Core\Core\Exceptions\InternalErrorException;
 use App\Core\Parents\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
 
-class AuthController extends ApiController
+final class AuthController extends ApiController
 {
 
     /**

@@ -6,7 +6,7 @@ use App\Containers\User\Tasks\GetCompaniesListTask;
 use App\Containers\User\Transformers\CompanyTransformer;
 use App\Core\Parents\Controllers\ApiController;
 
-class UserController extends ApiController
+final class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.

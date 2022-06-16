@@ -9,7 +9,7 @@ use App\Core\Parents\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-class RegisterController extends ApiController
+final class RegisterController extends ApiController
 {
 
     /**

@@ -7,11 +7,17 @@ use App\Containers\User\Http\Requests\CompanyCreateRequest;
 use App\Containers\User\Tasks\CompanyCreateTask;
 use App\Containers\User\Tasks\GetCompaniesListTask;
 use App\Containers\User\Transformers\CompanyTransformer;
+use App\Containers\User\Transformers\UserSimpleTransformer;
 use App\Core\Parents\Controllers\ApiController;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 final class UserController extends ApiController
 {
+
+    public function me()
+    {
+        return $this->transform(auth()->user(), UserSimpleTransformer::class);
+    }
 
     /**
      * @throws UnknownProperties

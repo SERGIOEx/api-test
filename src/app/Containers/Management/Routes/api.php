@@ -1,8 +1,6 @@
 <?php
 
-use App\Containers\User\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('user')->middleware('auth:sanctum')->group(function () {
-
-    // get simple info user
-    Route::get('/', [UserController::class, 'me']);
-
+Route::middleware('auth:api')->get('/management', function (Request $request) {
+    return $request->user();
 });

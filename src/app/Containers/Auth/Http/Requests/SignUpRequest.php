@@ -16,7 +16,7 @@ class SignUpRequest extends ApiRequest
         return [
             'first_name' => 'required|max:30',
             'last_name'  => 'required|max:30',
-            'email'      => 'required|string|email|',
+            'email'      => 'required|string|email|unique:users',
             'password'   => 'required|string|min:6',
             'phone'      => 'required',
         ];

@@ -50,6 +50,18 @@ final class UserController extends ApiController
         return $this->transform($users, UserFullTransformer::class);
     }
 
+    public function simpleList(): array
+    {
+        $users = $this->userService->getNameIdUsers();
+        return $this->transform($users, UserSimpleTransformer::class);
+    }
+
+    public function get(int $id): array
+    {
+        $user = $this->userService->getUser($id);
+        return $this->transform($user, UserFullTransformer::class);
+    }
+
     public function store(UserRequest $request): JsonResponse
     {
         try {
@@ -59,15 +71,19 @@ final class UserController extends ApiController
 
         }
 
-        return $this->accepted('User deleted');
+        return $this->created('User created');
     }
 
     public function update(UserUpdateRequest $request, int $id): JsonResponse
     {
-        $user = $this->userService->updateUser($this->initParam($request), $id);
-        $this->roleService->updateIfRoleChange($user, $request->role);
+        try {
+            $user = $this->userService->updateUser($this->initParam($request), $id);
+            $this->roleService->updateIfRoleChange($user, $request->role);
+        } catch (UnknownProperties $e) {
 
-        return $this->accepted('User deleted');
+        }
+
+        return $this->accepted('User updated');
     }
 
     public function destroySelected(ItemsDeleteRequest $request): JsonResponse

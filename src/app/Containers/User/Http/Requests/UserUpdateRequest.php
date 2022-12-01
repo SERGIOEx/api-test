@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Containers\Management\Http\Requests;
+namespace App\Containers\User\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Core\Parents\Requests\ApiRequest;
 use Illuminate\Validation\Rule;
 
-class UserUpdateRequest extends FormRequest
+class UserUpdateRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,10 +15,12 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => 'required|min:3|max:35',
-            'password' => 'nullable|min:6|max:10',
-            'email'    => ['required', Rule::unique('users')->ignore($this->id)],
-            'role'     => 'required|numeric',
+            'first_name' => 'required|min:3|max:35',
+            'last_name'  => 'required|min:3|max:35',
+            'password'   => 'nullable|min:6',
+            'email'      => ['required', Rule::unique('users')->ignore($this->id)],
+            'role'       => 'required|numeric',
+            'is_active'  => 'required|boolean',
         ];
     }
 

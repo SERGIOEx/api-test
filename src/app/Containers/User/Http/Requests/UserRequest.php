@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Containers\Management\Http\Requests;
+namespace App\Containers\User\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use JetBrains\PhpStorm\ArrayShape;
+use App\Core\Parents\Requests\ApiRequest;
 
-class UserRequest extends FormRequest
+class UserRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,9 +16,10 @@ class UserRequest extends FormRequest
         return [
             'first_name' => 'required|min:3|max:35',
             'last_name'  => 'required|min:3|max:35',
-            'password'   => 'required|min:6|max:10',
+            'password'   => 'required|min:6',
             'email'      => 'required|min:3|max:35|email|unique:users,email',
             'role'       => 'required|numeric',
+            'is_active'  => 'required|boolean',
         ];
     }
 

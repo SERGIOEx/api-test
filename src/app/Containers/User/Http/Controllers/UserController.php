@@ -2,9 +2,9 @@
 
 namespace App\Containers\User\Http\Controllers;
 
-use App\Containers\Management\Http\Requests\UserRequest;
-use App\Containers\Management\Http\Requests\UserUpdateRequest;
 use App\Containers\User\Data\Dto\UserData;
+use App\Containers\User\Http\Requests\UserRequest;
+use App\Containers\User\Http\Requests\UserUpdateRequest;
 use App\Containers\User\Services\UserService;
 use App\Containers\User\Transformers\UserFullTransformer;
 use App\Containers\User\Transformers\UserSimpleTransformer;

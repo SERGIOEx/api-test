@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Containers\Management\Data\Repositories;
+namespace App\Containers\User\Data\Repositories;
 
+use App\Containers\User\Entities\User;
 use App\Helpers\Traits\WhereTrait;
-use App\Containers\Management\Entities\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
-    use WhereTrait;
+   // use WhereTrait;
 
     /**
      * Specify Model class name

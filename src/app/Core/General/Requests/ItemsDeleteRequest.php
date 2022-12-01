@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Containers\Management\Http\Requests;
+namespace App\Core\General\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UsersDeleteRequest extends FormRequest
+class ItemsDeleteRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

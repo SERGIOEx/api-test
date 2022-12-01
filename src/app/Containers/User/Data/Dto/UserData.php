@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Containers\Management\Data\Dto;
+namespace App\Containers\User\Data\Dto;
 
 use Spatie\DataTransferObject\DataTransferObject;
 
 class UserData extends DataTransferObject
 {
-    public string $fullname;
+    public string $first_name;
+    public string $last_name;
+
     public string $email;
     public ?int $role;
 

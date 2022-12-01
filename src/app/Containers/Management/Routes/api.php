@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
+use App\Containers\Management\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/management', function (Request $request) {
-    return $request->user();
+Route::controller(RoleController::class)->prefix('platform/roles')->as('platform.roles.')->group(function () {
+
+    Route::get('/', 'index')->name('index')
+        ->middleware('permission:roles.index');
+
+    Route::get('/edit/{id}', 'edit')->name('edit')
+        ->middleware('permission:roles.edit');
+
+    Route::put('/update/{id}', 'update')->name('update')
+        ->middleware('permission:roles.edit');
+
+    Route::get('/create', 'create')->name('create')
+        ->middleware('permission:roles.create');
+
+    Route::post('/store', 'store')->name('store')
+        ->middleware('permission:roles.create');
+
+    Route::get('/destroy/{id}', 'destroy')->name('destroy')
+        ->middleware('permission:roles.delete');
 });

@@ -19,7 +19,6 @@ class UserUpdateRequest extends FormRequest
             'password' => 'nullable|min:6|max:10',
             'email'    => ['required', Rule::unique('users')->ignore($this->id)],
             'role'     => 'required|numeric',
-            'avatar'   => 'mimes:jpg,png,jpeg'
         ];
     }
 

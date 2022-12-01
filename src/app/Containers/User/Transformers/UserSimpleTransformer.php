@@ -13,7 +13,7 @@ class UserSimpleTransformer extends Transformer
     {
         return [
             'id'       => $item->id,
-            'username' => $item->fullname,
+            'fullname' => $item->fullname,
             'email'    => $item->email,
         ];
     }

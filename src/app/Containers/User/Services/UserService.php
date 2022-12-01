@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Containers\Management\Services;
+namespace App\Containers\User\Services;
 
 use Exception;
-use App\Containers\Management\Data\Dto\UserData;
-use App\Containers\Management\Data\Repositories\UserRepository;
+use App\Containers\User\Data\Dto\UserData;
+use App\Containers\User\Data\Repositories\UserRepository;
 
 /**
  * Class UserService
@@ -12,26 +12,11 @@ use App\Containers\Management\Data\Repositories\UserRepository;
  */
 class UserService
 {
-    /**
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
 
-    /**
-     * UserService constructor.
-     * @param UserRepository $userRepository
-     */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(private UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
     }
 
-    /**
-     * Create item
-     *
-     * @param UserData $data
-     * @return mixed
-     */
     public function createUser(UserData $data): mixed
     {
         try {
@@ -41,13 +26,6 @@ class UserService
         }
     }
 
-    /**
-     * Update item
-     *
-     * @param UserData $data
-     * @param int $uid
-     * @return mixed
-     */
     public function updateUser(UserData $data, int $uid): mixed
     {
         try {
@@ -57,22 +35,11 @@ class UserService
         }
     }
 
-    /**
-     * Get list items
-     *
-     * @return mixed
-     */
     public function getUsers()
     {
         return $this->userRepository->orderBy('id', 'desc')->paginate();
     }
 
-    /**
-     * Get item by id
-     *
-     * @param int $uid
-     * @return mixed
-     */
     public function getUser(int $uid): mixed
     {
         try {
@@ -82,12 +49,6 @@ class UserService
         }
     }
 
-    /**
-     * Remove items
-     *
-     * @param array $ids
-     * @return mixed
-     */
     public function deleteUsers(array $ids): mixed
     {
         try {
@@ -97,11 +58,7 @@ class UserService
         }
     }
 
-    /**
-     * Get short list items ['id' => 'fullname']
-     *
-     */
-    public function getNameIdUsers()
+    public function getNameIdUsers(): array
     {
         return $this->userRepository->pluck('fullname', 'id');
     }

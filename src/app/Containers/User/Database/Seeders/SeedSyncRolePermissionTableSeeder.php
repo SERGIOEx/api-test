@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Containers\Management\Database\Seeders;
+namespace App\Containers\User\Database\Seeders;
 
+use App\Containers\User\Data\Enums\PermissionListEnum;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use App\Containers\Management\Data\Enums\PermissionListEnum;
 use Spatie\Permission\Models\Role;
 
 class SeedSyncRolePermissionTableSeeder extends Seeder
@@ -20,6 +19,6 @@ class SeedSyncRolePermissionTableSeeder extends Seeder
         $adminRole->givePermissionTo(PermissionListEnum::PERM_LIST);
 
         $managerRole = Role::findByName('Manager');
-        $managerRole->givePermissionTo(PermissionListEnum::PERM_LIST);
+        $managerRole->givePermissionTo(PermissionListEnum::USERS_INDEX);
     }
 }

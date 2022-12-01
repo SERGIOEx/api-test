@@ -2,42 +2,96 @@
 
 namespace App\Containers\User\Http\Controllers;
 
-use App\Containers\User\Http\Dto\BaseCompanyParameters;
-use App\Containers\User\Http\Requests\CompanyCreateRequest;
-use App\Containers\User\Tasks\CompanyCreateTask;
-use App\Containers\User\Tasks\GetCompaniesListTask;
-use App\Containers\User\Transformers\CompanyTransformer;
+use App\Containers\Management\Http\Requests\UserRequest;
+use App\Containers\Management\Http\Requests\UserUpdateRequest;
+use App\Containers\User\Data\Dto\UserData;
+use App\Containers\User\Services\UserService;
+use App\Containers\User\Transformers\UserFullTransformer;
 use App\Containers\User\Transformers\UserSimpleTransformer;
+use App\Core\General\Requests\ItemsDeleteRequest;
 use App\Core\Parents\Controllers\ApiController;
+use Illuminate\Http\JsonResponse;
+use App\Containers\Management\Includes\RoleServiceInc;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 final class UserController extends ApiController
 {
 
-    public function me()
+    public function __construct(protected UserService $userService, protected RoleServiceInc $roleService)
     {
-        return $this->transform(auth()->user(), UserSimpleTransformer::class);
     }
 
     /**
+     * Init ClientData
+     *
+     * @param Request $r
+     * @return UserData
      * @throws UnknownProperties
      */
-    public function createCompany(CompanyCreateRequest $request): \Illuminate\Http\JsonResponse
+    protected function initParam(Request $r): UserData
     {
-        $parameters = new BaseCompanyParameters($request->all());
-        $parameters->author_id = auth()->id();
-
-        CompanyCreateTask::run($parameters);
-
-        return $this->created('Company created');
+        return new UserData(
+            first_name: $r->first_name,
+            last_name: $r->last_name,
+            email: $r->email,
+            phone: $r->phone,
+            avatar: $r->avatar,
+            password: $r->password,
+            role: $r->role,
+            is_active: $r->is_active
+        );
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function getCompanyList(): array
+    public function list(): array
     {
-        $data = GetCompaniesListTask::run();
-        return $this->transform($data, CompanyTransformer::class);
+        $users = $this->userService->getUsers();
+        return $this->transform($users, UserFullTransformer::class);
     }
+
+    public function store(UserRequest $request): JsonResponse
+    {
+        try {
+            $user = $this->userService->createUser($this->initParam($request));
+            $this->roleService->assignRole($user, $request->role);
+        } catch (UnknownProperties $e) {
+
+        }
+
+        return $this->accepted('User deleted');
+    }
+
+    public function update(UserUpdateRequest $request, int $id): JsonResponse
+    {
+        $user = $this->userService->updateUser($this->initParam($request), $id);
+        $this->roleService->updateIfRoleChange($user, $request->role);
+
+        return $this->accepted('User deleted');
+    }
+
+    public function destroySelected(ItemsDeleteRequest $request): JsonResponse
+    {
+        $this->userService->deleteUsers($request->ids);
+
+        return $this->deleted('Users selected deleted');
+    }
+
+    public function me(): array
+    {
+        return $this->transform(
+            $this->userService->getUser(Auth::user()->id), UserSimpleTransformer::class);
+    }
+
+    public function updateProfile(Request $request): JsonResponse
+    {
+        try {
+            $this->userService->updateUser($this->initParam($request), Auth::user()->id);
+        } catch (UnknownProperties $e) {
+
+        }
+
+        return $this->accepted('User updated');
+    }
+
 }

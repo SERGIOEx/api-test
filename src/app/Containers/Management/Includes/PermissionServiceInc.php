@@ -8,6 +8,6 @@ class PermissionServiceInc
 {
     public function getPermissionWithName(): array
     {
-        return PermissionListEnum::DESC_LIST_ALL_PERM;
+        return PermissionListEnum::PERM_LIST;
     }
 }

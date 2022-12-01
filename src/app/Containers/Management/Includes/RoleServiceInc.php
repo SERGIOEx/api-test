@@ -4,7 +4,7 @@ namespace App\Containers\Management\Includes;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use App\Containers\Management\Entities\User;
+use App\Containers\User\Entities\User;
 use Spatie\Permission\Models\{Permission, Role};
 
 class RoleServiceInc

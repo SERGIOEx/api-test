@@ -14,10 +14,24 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::controller(UserController::class)
+    ->prefix('platform/users')->middleware('auth:sanctum')->group(function () {
 
-Route::prefix('user')->middleware('auth:sanctum')->group(function () {
+        Route::get('/', 'list')->middleware('permission:users.index');
 
-    // get simple info user
-    Route::get('/', [UserController::class, 'me']);
+        // get simple info user
+        Route::get('/me', 'me');
 
-});
+
+        /*Route::get('/get/{id}', 'edit')->name('edit')
+            ->middleware('permission:users.edit');
+
+        Route::put('/update/{id}', 'update')->name('update')
+            ->middleware('permission:users.edit');
+
+        Route::post('/store', 'store')->name('store')
+            ->middleware('permission:users.create');
+
+        Route::post('/destroy', 'destroySelected')->name('destroySelected')
+            ->middleware('permission:users.delete');*/
+ });

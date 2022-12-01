@@ -15,11 +15,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname'  => 'required|min:3|max:35',
-            'password'  => 'required|min:6|max:10',
-            'email'     => 'required|min:3|max:35|email|unique:users,email',
-            'role'      => 'required|numeric',
-            'avatar'    => 'mimes:jpg,png,jpeg',
+            'first_name' => 'required|min:3|max:35',
+            'last_name'  => 'required|min:3|max:35',
+            'password'   => 'required|min:6|max:10',
+            'email'      => 'required|min:3|max:35|email|unique:users,email',
+            'role'       => 'required|numeric',
         ];
     }
 

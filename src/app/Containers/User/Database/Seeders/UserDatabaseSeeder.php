@@ -18,7 +18,8 @@ class UserDatabaseSeeder extends Seeder
 
         $this->call([
             UserTableTableSeeder::class,
-            CompanyTableTableSeeder::class,
+            SeedBasePermissionTableSeeder::class,
+            SeedSyncRolePermissionTableSeeder::class
         ]);
     }
 }

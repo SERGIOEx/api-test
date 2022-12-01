@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Containers\Management\Database\Seeders;
+namespace App\Containers\User\Database\Seeders;
 
+use App\Containers\User\Data\Enums\PermissionListEnum;
 use Illuminate\Database\Seeder;
-use App\Containers\Management\Data\Enums\PermissionListEnum;
 use Spatie\Permission\Models\Permission;
 
-class SeedBasePermissionsTableSeeder extends Seeder
+class SeedBasePermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

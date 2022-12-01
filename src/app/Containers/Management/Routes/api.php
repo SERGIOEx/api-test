@@ -13,23 +13,18 @@ use App\Containers\Management\Http\Controllers\RoleController;
 |
 */
 
-Route::controller(RoleController::class)->prefix('platform/roles')->as('platform.roles.')->group(function () {
+Route::controller(RoleController::class)->prefix('platform/roles')
+    ->middleware('auth:sanctum')->group(function () {
 
-    Route::get('/', 'index')->name('index')
-        ->middleware('permission:roles.index');
+    Route::get('/', 'list')->middleware('permission:roles.index');
 
-    Route::get('/edit/{id}', 'edit')->name('edit')
-        ->middleware('permission:roles.edit');
+    Route::get('/permissions', 'permissions')->middleware('permission:roles.create');
 
-    Route::put('/update/{id}', 'update')->name('update')
-        ->middleware('permission:roles.edit');
+    Route::get('/get/{id}', 'edit')->middleware('permission:roles.edit');
 
-    Route::get('/create', 'create')->name('create')
-        ->middleware('permission:roles.create');
+    Route::put('/update/{id}', 'update')->middleware('permission:roles.edit');
 
-    Route::post('/store', 'store')->name('store')
-        ->middleware('permission:roles.create');
+    Route::post('/store', 'store')->middleware('permission:roles.create');
 
-    Route::get('/destroy/{id}', 'destroy')->name('destroy')
-        ->middleware('permission:roles.delete');
+    Route::get('/destroy/{id}', 'destroy')->middleware('permission:roles.delete');
 });

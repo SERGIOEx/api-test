@@ -2,12 +2,16 @@
 
 namespace App\Containers\Management\Includes;
 
-use App\Containers\Management\Data\Enums\PermissionListEnum;
+use App\Containers\Management\Data\Enums\PermissionListEnum as RolePermissions;
+use App\Containers\User\Data\Enums\PermissionListEnum as UserPermissions;
 
 class PermissionServiceInc
 {
     public function getPermissionWithName(): array
     {
-        return PermissionListEnum::PERM_LIST;
+        return [
+            'role' => RolePermissions::PERM_LIST,
+            'user' => UserPermissions::PERM_LIST
+        ];
     }
 }

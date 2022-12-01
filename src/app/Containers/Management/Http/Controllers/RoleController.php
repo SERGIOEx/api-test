@@ -3,6 +3,7 @@
 namespace App\Containers\Management\Http\Controllers;
 
 use App\Containers\Management\Transformers\PermissionListTransformer;
+use App\Containers\Management\Transformers\RolesListTransformer;
 use App\Core\Parents\Controllers\ApiController;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -15,38 +16,30 @@ use App\Containers\Management\Includes\RoleServiceInc;
 
 class RoleController extends ApiController
 {
-    protected RoleServiceInc $roleService;
 
-    protected PermissionServiceInc $permissionService;
-
-    public array $permissionsList;
-
-    public function __construct(RoleServiceInc $service, PermissionServiceInc $permissionService)
+    public function __construct(private RoleServiceInc $roleService, private PermissionServiceInc $permissionService)
     {
-        $this->roleService = $service;
-        $this->permissionService = $permissionService;
-        $this->permissionsList = $this->permissionService->getPermissionWithName();
     }
 
-    public function index()
+    public function list(): JsonResponse
     {
         $roles = $this->roleService->getRolesList();
-        return view($this->viewUrl . 'index', compact('roles'));
+        return $this->json($roles);
     }
 
-    public function create(): array
+    public function permissions(): JsonResponse
     {
-        $permissions = $this->permissionsList;
-        return $this->transform($permissions, PermissionListTransformer::class);
+        $permissions = $this->permissionService->getPermissionWithName();
+        return $this->json($permissions);
     }
 
-    public function store(RoleRequest $request)
+    public function store(RoleRequest $request): JsonResponse
     {
         $this->roleService->createRole($request->title, $request->permissions);
         return $this->created('Role created');
     }
 
-    public function edit(int $id)
+    public function get(int $id)
     {
         $role = $this->roleService->getRole($id);
         $permissions = $this->permissionsList;

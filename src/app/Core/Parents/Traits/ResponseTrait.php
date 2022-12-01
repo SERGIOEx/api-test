@@ -67,7 +67,7 @@ trait ResponseTrait
             }
 
             // if we have an object, try to get its resourceKey
-            if ($obj) {
+            if ($obj && !is_array($obj)) {
                 $resourceKey = method_exists($obj, 'getTable') ? $obj->getTable() : null;
             }
         }

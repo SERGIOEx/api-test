@@ -30,4 +30,6 @@ Route::controller(UserController::class)->prefix('platform/users')
 
         // get simple info user
         Route::get('/me', 'me');
+
+        Route::put('/me', 'updateMe');
  });

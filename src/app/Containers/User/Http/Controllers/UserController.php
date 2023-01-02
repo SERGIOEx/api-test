@@ -3,6 +3,8 @@
 namespace App\Containers\User\Http\Controllers;
 
 use App\Containers\User\Data\Dto\UserData;
+use App\Containers\User\Data\Dto\UserProfileData;
+use App\Containers\User\Http\Requests\ProfileUpdateRequest;
 use App\Containers\User\Http\Requests\UserRequest;
 use App\Containers\User\Http\Requests\UserUpdateRequest;
 use App\Containers\User\Services\UserService;
@@ -97,6 +99,25 @@ final class UserController extends ApiController
     {
         return $this->transform(
             $this->userService->getUser(Auth::user()->id), UserSimpleTransformer::class);
+    }
+
+    public function updateMe(ProfileUpdateRequest $request): JsonResponse
+    {
+        try {
+            $data = new UserProfileData(
+                first_name: $request->first_name,
+                last_name: $request->last_name,
+                email: $request->email,
+                phone: $request->phone,
+                password: $request->password
+            );
+
+            $this->userService->updateUser($data, auth()->id());
+        } catch (UnknownProperties $e) {
+
+        }
+
+        return $this->accepted('Profile updated');
     }
 
     public function updateProfile(Request $request): JsonResponse

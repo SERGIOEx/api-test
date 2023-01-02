@@ -35,4 +35,9 @@ final class AuthController extends ApiController
         return $this->deleted('ok');
     }
 
+    public function isAuthorized(): JsonResponse
+    {
+        return $this->accepted('true');
+    }
+
 }

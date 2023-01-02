@@ -25,6 +25,9 @@ Route::prefix('auth')->group(function () {
     // logout user
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    // is authorize
+    Route::get('/authorized', [AuthController::class, 'isAuthorized']);
+
     // forgot password
 
     // confirm change password

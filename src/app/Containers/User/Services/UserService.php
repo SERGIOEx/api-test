@@ -5,6 +5,7 @@ namespace App\Containers\User\Services;
 use Exception;
 use App\Containers\User\Data\Dto\UserData;
 use App\Containers\User\Data\Repositories\UserRepository;
+use Spatie\DataTransferObject\DataTransferObject;
 
 /**
  * Class UserService
@@ -26,7 +27,7 @@ class UserService
         }
     }
 
-    public function updateUser(UserData $data, int $uid): mixed
+    public function updateUser(DataTransferObject $data, int $uid): mixed
     {
         try {
             return $this->userRepository->update($data->except('role')->toArray(), $uid);
@@ -37,7 +38,7 @@ class UserService
 
     public function getUsers()
     {
-        return $this->userRepository->orderBy('id', 'desc')->paginate();
+        return $this->userRepository->orderBy('id', 'desc')->paginate(10);
     }
 
     public function getUser(int $uid): mixed
